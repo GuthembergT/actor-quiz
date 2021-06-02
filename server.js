@@ -27,27 +27,21 @@ app.get('/', async (req, res) => {
         do{
             castFetchResult = await fetch(`https://api.themoviedb.org/3/movie/${data.movie.id}/credits?api_key=${configKey.key}&language=en-US`).then(response => response.json()).then(apiData => apiData.cast);
             firstIterator++;
-        } while(castFetchResult.length < 4)
-        console.log('first cast DONE!');
+        } while(castFetchResult.length < 4);
         data.actors = castFetchResult.slice(0, 3);
-        data.actors.forEach(el => el.movieId = data.movie.id)
+        data.actors.forEach(el => el.movieId = data.movie.id);
         const thirdActorsMovies = await fetch(`https://api.themoviedb.org/3/person/${data.actors[2].id}/movie_credits?api_key=${configKey.key}&language=en-US`).then(response => response.json()).then(apiData => apiData.cast);
-        thirdActorsMovies.sort((a, b) => a.popularity - b.popularity)
-        console.log('Third actor\'s movie list DONE!');
+        thirdActorsMovies.sort((a, b) => a.popularity - b.popularity);
     // ========
     // ======== DIFFERENT MOVIE CAST
-        console.log(`Third Actor\'s Movie Quantity: ${thirdActorsMovies.length}`);
         let secondIterator = 0, otherMovieCastFetch = '';
         do {
             otherMovieCastFetch = await fetch(`https://api.themoviedb.org/3/movie/${thirdActorsMovies[secondIterator].id}/credits?api_key=${configKey.key}&language=en-US`).then(response => response.json()).then(apiData => apiData.cast);
             secondIterator++;
-        } while(otherMovieCastFetch.length < 3)
-        console.log('Second cast DONE!');
+        } while(otherMovieCastFetch.length < 3);
         otherMovieCastFetch.forEach(actor => { if (data.actors.length < 5) if (notInActorList(data.actors, actor.name)) data.actors.push(actor)});
-        console.log(data.actors.length);
         data.actors[3].movieId = thirdActorsMovies[0].id;
         data.actors[4].movieId = thirdActorsMovies[0].id;
-        // data.actors.forEach(e => console.log(e));
     res.render('index.ejs', data);
 });
 
