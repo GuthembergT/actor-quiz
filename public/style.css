@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500&display=swap');
+
+* {
+    font-family: 'Oswald', sans-serif;
+}
+
+.container,
+.title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /* the transform can help with positioning */
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 8px rgb(39, 39, 39);
+    width: 465px;
+    height: auto;
+    text-align: center;
+    /* background-color: grey; */
+}
+
+.title {
+    border-radius: 2.5px;
+    top: 35%;
+    background-color: white;
+}
+
+input[type=checkbox] {
+    display: block;
+    width: 70%;
+    margin-bottom: -20px;
+}
+
+#submit {
+    display: block;
+    margin-left: 43%;
+}
+
+#outcome {
+    position: absolute;
+    top: 55%;
+    left: 37.5%;
+}
